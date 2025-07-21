@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { body } from 'express-validator'
-import { createAccount, getUser, getUserByHandle, login, searchByHandle, updateProfile, uploadImage } from './handlers'
+import { createAccount, getUser, getUserByHandle, login, searchByHandle, updateProfile, uploadImage, forgotPassword, resetPassword } from './handlers'
 import { handleInputErrors } from './middleware/validation'
 import { authenticate } from './middleware/auth'
 
@@ -33,6 +33,20 @@ router.post('/auth/login',
         .withMessage('El Password es obligatorio'),
     handleInputErrors,
     login
+)
+
+router.post(
+  "/auth/forgot-password",
+  body("email").isEmail().withMessage("E-mail no válido"),
+  handleInputErrors,
+  forgotPassword,
+)
+
+router.post(
+  "/auth/reset-password/:token",
+  body("password").isLength({ min: 8 }).withMessage("El Password es muy corto, mínimo 8 caracteres"),
+  handleInputErrors,
+  resetPassword,
 )
 
 router.get('/user', authenticate, getUser)

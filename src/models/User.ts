@@ -8,6 +8,8 @@ export interface IUser extends Document {
     description: string
     image: string
     links: string
+    resetPasswordToken: string
+    resetPasswordExpires: Date
 }
 
 const userSchema = new Schema({
@@ -46,7 +48,15 @@ const userSchema = new Schema({
     links: {
         type: String,
         default: '[]'
-    }
+    },
+    resetPasswordToken: {
+        type: String,
+        default: "",
+    },
+    resetPasswordExpires: {
+        type: Date,
+        default: null,
+    },    
 })
 
 const User = mongoose.model<IUser>('User', userSchema)

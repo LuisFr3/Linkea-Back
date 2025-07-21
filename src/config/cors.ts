@@ -6,8 +6,8 @@ const whiteList = [
 
 export const corsConfig: CorsOptions = {
   origin(origin, callback) {
-    console.log('Origin recibido:', origin)
-    console.log('Whitelist:', whiteList)
+    //console.log('Origin recibido:', origin)
+    //console.log('Whitelist:', whiteList)
 
     if (!origin || whiteList.includes(origin)) {
       callback(null, true)
